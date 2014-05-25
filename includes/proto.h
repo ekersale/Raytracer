@@ -1,0 +1,159 @@
+/*
+** proto.h for rt in /home/thomps_j//SVN/raytracer-2017-porres_m/new_start
+** 
+** Made by julien thompson
+** Login   <thomps_j@epitech.net>
+** 
+** Started on  Thu May  2 04:53:42 2013 julien thompson
+** Last update Sun Jun  9 21:54:59 2013 elliot kersale
+*/
+
+#ifndef		_PROTO_H__
+# define	_PROTO_H__
+
+#include	"types.h"
+
+/*
+** DEFINE
+*/
+# define	TITLE		"Raytracer"
+# define	MAX_ITERATION	(15)
+# define	MAX_DIST_VISION	(15000)
+# define	M_WIN		"#WINDOW\nWINX\t-\nWINY\t-\n"
+# define	M_EYE		"#ORIGIN\nPOS\t-,-,-\nROT\t-,-,-\n"
+# define	M_FOR		"#FORMS\n"
+# define	HDR_1		"TYPE\tSIZE\tHEIGHT\tPOSITION\tCOLOR\t\t"
+# define	HDR_2		"ROTATION\tLUMINOSITY\tPOWER\t"
+# define	HDR_3		"REFLEXION\tTRANSPARANCY\n"
+# define	END		"#EOF\n"
+# define	SC_CREATED	"Scene file model has been created.\n"
+# define	SIZE_HDR	(124)
+# define	TYPE_ERROR	"Error: invalid type\n"
+# define	CANT_CREAT	"Error: can't create new file\n"
+# define	ERR_LIST	"%s at this line :\n%s\n"
+# define	MISS_SEP	"Missing or wrong separator"
+# define	UNK_TYPE	"Unknown type"
+# define	SIZE_NBR	"Invalid [size] number"
+# define	EYE_ERROR	"Eye parameters are missing or invalid\n"
+# define	WIN_ERROR	"Window parameters are missing or invalid\n"
+# define	FOR_ERROR	"Forms parameters are missing or invalid\n"
+# define	SYNTAX_ERROR	"Syntax error\n"
+
+/*
+** INITIALISATION
+*/
+int		initialisation(char *);
+int		start_window(t_data *);
+int		expose_hook(t_data *);
+void		traverse_pixel(t_data *);
+void		my_pixel_put_to_image(t_data *, int, int, t_col);
+int		key_hook(int);
+
+/*
+** PARSEUR
+*/
+void		show_data(t_data *data);
+void		show_vect(t_vect vec);
+void		show_col(t_col col);
+void		show_obj(t_obj *obj);
+void		show_lig(t_lig *lig);
+
+int		check_and_parse(char *, t_data *);
+int		test_file(char *);
+void		create_new_file(int);
+void		write_line(int, char, int);
+t_data		*get_win_and_eye(int, t_data *);
+t_data		*get_eye_data(int, t_data *);
+t_data		*get_dimensions(int, t_data *);
+t_data		*get_obj_and_light(int, t_data *);
+void		light_power(double, t_col *);
+t_lig		*get_light(char *, t_lig *);
+t_obj		*get_obj(char *, t_obj *);
+char		*skip_useless(char *);
+char		*skip_next(char *);
+char		*skip_void(char *);
+char		*skip_text(char *);
+void		free_tab(char **);
+double		get_val(char *, double);
+double		set_type(char *, char);
+char		*cut_str(char *);
+char		**get_types_list();
+t_obj		*put_obj_in_list(t_obj *);
+t_lig		*put_light_in_list(t_lig *);
+char		*check_sign(char *, int *);
+char		*get_float_nbr(char *, float *);
+char		*get_vector(char *, t_vect *);
+char		*get_color(char *, t_col *);
+
+/*
+** STRING
+*/
+char		*my_strcat(char *, char *);
+char		*my_strncpy(char *, char *, int);
+void		is_num(char *);
+int		str_match(char *, char *);
+char		*my_strdup(char *);
+void		my_putchar(char);
+int		my_putstr(char *);
+int		my_strlen(char *);
+char		**str_to_wordtab(char *);
+int		my_strncmp(char *, char *, int);
+int		my_getnbr(char *);
+int		my_putnbr_base(int, char *);
+unsigned int	my_putnbr_base_u(unsigned int, char *);
+
+/*
+** EFFECTS
+*/
+void		render_iteration(t_ray *, t_col *, t_data *);
+t_col		get_pixel_render(t_data *);
+void		init_value(t_ray *, t_col *, t_data *);
+float		add_light_diff(t_var *, t_data *);
+void		calculate_normal(t_var *);
+void		calc_pos(t_var *, t_data *, t_ray *);
+void		norme_sphere(t_var **);
+void		norme_plan(t_var **);
+void		norme_cone(t_var **);
+void		norme_cylindre(t_var **);
+void		norme_para1(t_var **);
+void		norme_para2(t_var **);
+
+/*
+** OBJECTS
+*/
+int		is_obj_intersection(t_data *, float *, t_obj *, t_ray *);
+t_obj		*check_intersection(t_ray *, float *, t_data *);
+int		inter_cone(t_data *, float *, t_obj *, t_ray *);
+int		inter_cylindre(t_data *, float *, t_obj *, t_ray *);
+int		inter_para1(t_data *, float *, t_obj *, t_ray *);
+int		inter_para2(t_data *, float *, t_obj *, t_ray *);
+int		inter_plan(t_data *, float *, t_obj *, t_ray *);
+int		inter_sphere(t_data *, float *, t_obj *, t_ray *);
+
+/*
+** ROTATION
+*/
+
+void		rotation(t_vect *r, t_vect *rot);
+void		rotate_x(t_vect *r, float teta);
+void		rotate_y(t_vect *r, float teta);
+void		rotate_z(t_vect *r, float teta);
+
+/*
+** VECTOR
+*/
+t_vect		vect_add(t_vect *, t_vect *);
+t_vect		vect_sub(t_vect *, t_vect *);
+t_vect		vect_scal(float, t_vect *);
+float		scal_prod(t_vect *, t_vect *);
+
+/*
+** RESOLVE
+*/
+float		delta(float, float, float);
+/*
+**
+*/
+
+#endif
+/*	EOF	*/

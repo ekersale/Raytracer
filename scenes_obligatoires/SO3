@@ -1,0 +1,13 @@
+#WINDOW
+WINX	1024
+WINY	768
+#ORIGIN
+POS	-1000,0,0
+ROT	0,0,0
+#FORMS
+TYPE	SIZE	POSITION	COLOR		ROTATION	LUMINOSITY	POWER	REFLEXION	TRANSPARANCY
+--------------------------------------------------------------------------------------------------------------------
+CYLIND	150.0	0,-175,0	1,0,0		0,-15.0,0	1,1,1		1	1		1
+SPHERE	150.0	-100,-175,-180	0,0,0.5		0,0,0		1,1,1		1	0		0
+LIGHT	-	-200,300,500	-		-		1,1,1		1	-		-
+#EOF
